@@ -22,7 +22,7 @@ void print_menu(void);
 int main(int argc, char **argv)
 {
 	char command;
-	int gameOver = 0, gameLevel = 1, gameScore = 0, gamePlays = 0, randomNumbers[4], userNumbers[4];
+	int run = 0, gameLevel = 1, gameScore = 0, gamePlays = 0, correct, randomNumbers[4], userNumbers[4];
 
 
 	puts(MSG_WELCOME);
@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 	switch (command)
 	{
 	case 'p':
+
 		for (int i = 0; i < 4; i++){
 			if (gameLevel == 1){
 				randomNumbers[i] = rand_number(0, 10);
@@ -53,6 +54,7 @@ int main(int argc, char **argv)
 		puts(MSG_SORT);
 		printf("%d, %d, %d, %d\n", randomNumbers[0], randomNumbers[1], randomNumbers[2], randomNumbers[3]);
 		scanf("%d %d %d %d", &userNumbers[0], &userNumbers[1], &userNumbers[2], &userNumbers[3]);
+		gamePlays++;
 		int unsorted = 1;
 		while (unsorted){
 			unsorted = 0;
@@ -65,11 +67,31 @@ int main(int argc, char **argv)
 				}
 			}
 		}
-		printf("%d %d %d %d", randomNumbers[0], randomNumbers[1], randomNumbers[2], randomNumbers[3]);
+		for (int i = 0; i < 4; i++){
+			if (userNumbers[i] != randomNumbers[i]){
+				puts(MSG_WRONG);
+				correct = 0;
+				break;
+			}
+			else{
+				correct =1;
+			}
+		}
+		if (correct){
+			puts(MSG_WELL);
+			gameScore += 5;
+		}
+		gameScore == 10 ? gameLevel = 2 : gameScore == 20 ? gameLevel = 3 : gameScore == 30 ? gameLevel = 4 : gameScore == 40 ? gameLevel = 5 : gameScore == 50 ? gameLevel = 6 : 0;
+
+		if (gameLevel == 6){
+			puts(MSG_WIN);
+			print_status(gameLevel, gameScore, gamePlays);
+			puts(MSG_OVER);
+		}
 		break;
 
 	case 'q':
-		gameOver = 1;
+		run = 1;
 		break;
 
 	case 'm':
@@ -83,7 +105,7 @@ int main(int argc, char **argv)
 	default:
 		break;
 	}
-} while (gameOver == 0);
+} while (run == 0);
 	return 0;
 }
 
