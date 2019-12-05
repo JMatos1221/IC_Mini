@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
 #define MSG_WELCOME "WELCOME TO SORTIFY!"
 #define MSG_SORT "Sort the following numbers:"
@@ -18,12 +19,17 @@ int rand_number(const int, const int);
 void print_status(const int, const int, const int);
 void print_menu(void);
 
-
 int main(int argc, char **argv)
 {
+	if (argc > 1){
+		srand(*argv[1]);
+	}
+	else{
+		srand(time(0));
+	}
+
 	char command;
 	int run = 0, gameLevel = 1, gameScore = 0, gamePlays = 0, correct, randomNumbers[4], userNumbers[4];
-
 
 	puts(MSG_WELCOME);
 	print_menu();
@@ -88,10 +94,17 @@ int main(int argc, char **argv)
 			print_status(gameLevel, gameScore, gamePlays);
 			puts(MSG_OVER);
 		}
+		else if (gamePlays >= 30){
+			puts(MSG_MAX);
+			print_status(gameLevel, gameScore, gamePlays);
+			puts(MSG_OVER);
+		}
 		break;
 
 	case 'q':
 		run = 1;
+		print_status(gameLevel, gameScore, gamePlays);
+		puts(MSG_BYE);
 		break;
 
 	case 'm':
