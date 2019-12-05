@@ -22,7 +22,7 @@ void print_menu(void);
 int main(int argc, char **argv)
 {
 	char command;
-	int gameOver = 0, gameLevel = 1, gameScore = 0, gamePlays = 0, random_Numbers[4], userNumbers[4];
+	int gameOver = 0, gameLevel = 1, gameScore = 0, gamePlays = 0, randomNumbers[4], userNumbers[4];
 
 
 	puts(MSG_WELCOME);
@@ -35,24 +35,37 @@ int main(int argc, char **argv)
 	case 'p':
 		for (int i = 0; i < 4; i++){
 			if (gameLevel == 1){
-				random_Numbers[i] = rand_number(0, 10);
+				randomNumbers[i] = rand_number(0, 10);
 			}
 			else if (gameLevel == 2){
-				random_Numbers[i] = rand_number(0, 30);
+				randomNumbers[i] = rand_number(0, 30);
 			}
 			else if (gameLevel == 3){
-				random_Numbers[i] = rand_number(-50, 30);
+				randomNumbers[i] = rand_number(-50, 30);
 			}
 			else if (gameLevel == 4){
-				random_Numbers[i] = rand_number(-100, 0);
+				randomNumbers[i] = rand_number(-100, 0);
 			}
 			else if (gameLevel == 5){
-				random_Numbers[i] = rand_number(-200, -100);
+				randomNumbers[i] = rand_number(-200, -100);
 			}
 		}
 		puts(MSG_SORT);
-		printf("%d, %d, %d, %d\n", random_Numbers[0], random_Numbers[1], random_Numbers[2], random_Numbers[3]);
-		scanf("%d %d %d %d", userNumbers[0], userNumbers[1], userNumbers[2], userNumbers[3]);
+		printf("%d, %d, %d, %d\n", randomNumbers[0], randomNumbers[1], randomNumbers[2], randomNumbers[3]);
+		scanf("%d %d %d %d", &userNumbers[0], &userNumbers[1], &userNumbers[2], &userNumbers[3]);
+		int unsorted = 1;
+		while (unsorted){
+			unsorted = 0;
+			for (int i =0; i < 3; i++){
+				if (randomNumbers[i] > randomNumbers[i + 1]){
+					int aux = randomNumbers[i];
+					randomNumbers[i] = randomNumbers[i + 1];
+					randomNumbers[i + 1] = aux;
+					unsorted = 1;
+				}
+			}
+		}
+		printf("%d %d %d %d", randomNumbers[0], randomNumbers[1], randomNumbers[2], randomNumbers[3]);
 		break;
 
 	case 'q':
