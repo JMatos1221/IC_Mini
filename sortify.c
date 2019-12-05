@@ -22,7 +22,7 @@ void print_menu(void);
 int main(int argc, char **argv)
 {
 	if (argc > 1){
-		srand(*argv[1]);
+		srand(atoi(argv[1]));
 	}
 	else{
 		srand(time(0));
