@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 	puts(MSG_WELCOME);
 	print_menu();
 
-	do{ command = getchar();
+	do{ scanf(" %c", &command);
 
 	switch (command)
 	{
@@ -135,6 +135,7 @@ int main(int argc, char **argv)
 		break;
 	
 	default:
+		puts(MSG_UNKNOWN);
 		break;
 	}
 } while (run == 0);
