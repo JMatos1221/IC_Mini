@@ -9,7 +9,7 @@
 #define MSG_WELL "Well done!"
 #define MSG_WIN "Congratulations, you win!"
 #define MSG_OVER "Game Over."
-#define MSG_WRONG "Wrong answer."
+#define MSG_WRONG "Wrong answer." 
 #define MSG_MAX "You have reached the maximum number of moves."
 #define MSG_BYE "Bye."
 #define MSG_UNKNOWN "Unknown option."
@@ -22,10 +22,10 @@ void print_menu(void);
 int main(int argc, char **argv)
 {
 	if (argc > 1){
-		srand(atoi(argv[1]));
+		srand(atoi(argv[1])); //Receber seed
 	}
 	else{
-		srand(time(0));
+		srand(time(0)); //Gerar seed baseada no tempo
 	}
 
 	char command;
@@ -34,13 +34,13 @@ int main(int argc, char **argv)
 	puts(MSG_WELCOME);
 	print_menu();
 
-	do{ scanf(" %c", &command);
+	do{ scanf(" %c", &command); //Scan do comando (p, q, s, m)
 
 	switch (command)
 	{
 	case 'p':
 
-		for (int i = 0; i < 4; i++){
+		for (int i = 0; i < 4; i++){ //Gera o intervalo de numeros consoante o nivel
 			if (gameLevel == 1){
 				randomNumbers[i] = rand_number(0, 10);
 			}
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 				randomNumbers[i] = rand_number(0, 30);
 			}
 			else if (gameLevel == 3){
-				randomNumbers[i] = rand_number(-50, 30);
+				randomNumbers[i] = rand_number(-50, 30); 
 			}
 			else if (gameLevel == 4){
 				randomNumbers[i] = rand_number(-100, 0);
@@ -58,11 +58,11 @@ int main(int argc, char **argv)
 			}
 		}
 		puts(MSG_SORT);
-		printf("%d, %d, %d, %d\n", randomNumbers[0], randomNumbers[1], randomNumbers[2], randomNumbers[3]);
+		printf("%d, %d, %d, %d\n", randomNumbers[0], randomNumbers[1], randomNumbers[2], randomNumbers[3]); //Imprime o intervalo de numeros gerado
 		do{
-		scanf("%d %d %d %d", &userNumbers[0], &userNumbers[1], &userNumbers[2], &userNumbers[3]);
+		scanf("%d %d %d %d", &userNumbers[0], &userNumbers[1], &userNumbers[2], &userNumbers[3]); //Recebe os numeros do utilizador
 		int unsorted = 1;
-		while (unsorted){
+		while (unsorted){ //Ordena os numeros, sendo que apenas sai do ciclo quando o `if` nao se verificar (unsorted continua a ser 0)
 			unsorted = 0;
 			for (int i =0; i < 3; i++){
 				if (randomNumbers[i] > randomNumbers[i + 1]){
@@ -73,25 +73,25 @@ int main(int argc, char **argv)
 				}
 			}
 		}
-		for (int i = 0; i < 4; i++){
+		for (int i = 0; i < 4; i++){ //Verifica se todos os numeros inseridos estao no array gerado consoante o nivel
 			present = 0;
 			for (int j = 0; j < 4; j++){
 				if (userNumbers[i] == randomNumbers[j]){
 					present = 1;
     			}
     		}
-			if (present == 0){break;}
+			if (present == 0){break;} //Para de verificar se nao tiver presente
 		}
 
 		if (present == 0){
 			puts(MSG_SORT2);
 		}
 
-		} while (present == 0);
+		} while (present == 0); //Loop ate todos os numeros estarem presentes
 
 		gamePlays++;
 
-		for (int i = 0; i < 4; i++){
+		for (int i = 0; i < 4; i++){ //Verifica se os numeros estao corretamente ordenados, imprime MSG_WRONG caso nao estejam
 					if (userNumbers[i] != randomNumbers[i]){
 						puts(MSG_WRONG);
 						correct = 0;
@@ -102,19 +102,19 @@ int main(int argc, char **argv)
 					}
 				}
             
-		if (correct){
+		if (correct){ //Imprime MSG_WELL se tudo estiver corretamente ordenado
 			puts(MSG_WELL);
 			gameScore += 5;
 		}
-		gameScore == 10 ? gameLevel = 2 : gameScore == 20 ? gameLevel = 3 : gameScore == 30 ? gameLevel = 4 : gameScore == 40 ? gameLevel = 5 : gameScore == 50 ? gameLevel = 6 : 0;
+		gameScore == 10 ? gameLevel = 2 : gameScore == 20 ? gameLevel = 3 : gameScore == 30 ? gameLevel = 4 : gameScore == 40 ? gameLevel = 5 : gameScore == 50 ? gameLevel = 6 : 0; //Verifica os pontos do jogador e se suficientes sobe o nivel
 
-		if (gameLevel == 6){
+		if (gameLevel == 6){ //Caso o jogador chegue ao nivel 6 (Fim), imprime MSG_WIN, status e MSG_OVER, depois termina o jogo
 			puts(MSG_WIN);
 			print_status(gameLevel, gameScore, gamePlays);
 			puts(MSG_OVER);
 			run = 0;
 		}
-		else if (gamePlays >= 30){
+		else if (gamePlays >= 30){ //Caso o jogador chegue as 30 jogadas sem chegar ao nivel 6, imprimie MSG_MAX, status, MSG_OVER e termina o jogo
 			puts(MSG_MAX);
 			print_status(gameLevel, gameScore, gamePlays);
 			puts(MSG_OVER);
@@ -122,25 +122,25 @@ int main(int argc, char **argv)
 		}
 		break;
 
-	case 'q':
+	case 'q': //Comando para sair do jogo, imprime status e MSG_BYE
 		run = 0;
 		print_status(gameLevel, gameScore, gamePlays);
 		puts(MSG_BYE);
 		break;
 
-	case 'm':
+	case 'm': //Comando para imprimir o menu
 		print_menu();
 		break;
 
-	case 's':
+	case 's': //Comando para imprimir o status
 		print_status(gameLevel, gameScore, gamePlays);
 		break;
 	
-	default:
+	default: //Imprime MSG_UNKNOWN quando o comando nao existe
 		puts(MSG_UNKNOWN);
 		break;
 	}
-} while (run == 1);
+} while (run == 1); //Loop que mantem o jogo a correr
 	return 0;
 }
 
