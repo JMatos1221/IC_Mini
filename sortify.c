@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	}
 
 	char command;
-	int run = 0, gameLevel = 1, gameScore = 0, gamePlays = 0, correct, randomNumbers[4], userNumbers[4];
+	int run = 0, gameLevel = 1, gameScore = 0, gamePlays = 0, correct = 0, present = 0, randomNumbers[4], userNumbers[4];
 
 	puts(MSG_WELCOME);
 	print_menu();
@@ -59,8 +59,8 @@ int main(int argc, char **argv)
 		}
 		puts(MSG_SORT);
 		printf("%d, %d, %d, %d\n", randomNumbers[0], randomNumbers[1], randomNumbers[2], randomNumbers[3]);
+		do{
 		scanf("%d %d %d %d", &userNumbers[0], &userNumbers[1], &userNumbers[2], &userNumbers[3]);
-		gamePlays++;
 		int unsorted = 1;
 		while (unsorted){
 			unsorted = 0;
@@ -74,15 +74,34 @@ int main(int argc, char **argv)
 			}
 		}
 		for (int i = 0; i < 4; i++){
-			if (userNumbers[i] != randomNumbers[i]){
-				puts(MSG_WRONG);
-				correct = 0;
-				break;
-			}
-			else{
-				correct =1;
-			}
+			present = 0;
+			for (int j = 0; j < 4; j++){
+				if (userNumbers[i] == randomNumbers[j]){
+					present = 1;
+    			}
+    		}
+			if (present == 0){break;}
 		}
+
+		if (present == 0){
+			puts(MSG_SORT2);
+		}
+
+		} while (present == 0);
+
+		gamePlays++;
+
+		for (int i = 0; i < 4; i++){
+					if (userNumbers[i] != randomNumbers[i]){
+						puts(MSG_WRONG);
+						correct = 0;
+						break;
+					}
+					else{
+						correct =1;
+					}
+				}
+            
 		if (correct){
 			puts(MSG_WELL);
 			gameScore += 5;
