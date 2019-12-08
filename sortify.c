@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	}
 
 	char command;
-	int run = 0, gameLevel = 1, gameScore = 0, gamePlays = 0, correct = 0, present = 0, randomNumbers[4], userNumbers[4];
+	int run = 1, gameLevel = 1, gameScore = 0, gamePlays = 0, correct = 0, present = 0, randomNumbers[4], userNumbers[4];
 
 	puts(MSG_WELCOME);
 	print_menu();
@@ -112,16 +112,18 @@ int main(int argc, char **argv)
 			puts(MSG_WIN);
 			print_status(gameLevel, gameScore, gamePlays);
 			puts(MSG_OVER);
+			run = 0;
 		}
 		else if (gamePlays >= 30){
 			puts(MSG_MAX);
 			print_status(gameLevel, gameScore, gamePlays);
 			puts(MSG_OVER);
+			run = 0;
 		}
 		break;
 
 	case 'q':
-		run = 1;
+		run = 0;
 		print_status(gameLevel, gameScore, gamePlays);
 		puts(MSG_BYE);
 		break;
@@ -138,7 +140,7 @@ int main(int argc, char **argv)
 		puts(MSG_UNKNOWN);
 		break;
 	}
-} while (run == 0);
+} while (run == 1);
 	return 0;
 }
 
