@@ -31,19 +31,19 @@ Explicando cada caso:
 
 ![Command p](Images\commandP.png)
 
-* Caso `m`: A função print_menu é chamada, e o jogador volta a ver o menu.
+* Caso `m`: A função `print_menu` é chamada, e o jogador volta a ver o menu.
 
 ![Command m](Images\commandM.png)
 
-* Caso `s`: É chamada a função print_status onde é mostrado as estatísticas do jogador.
+* Caso `s`: É chamada a função `print_status` onde é mostrado as estatísticas do jogador.
 
 ![Command s](Images\commandS.png)
 
-* Caso `q` : É chamada a função print_status onde é mostrado as estatísticas do jogador, é imprimida a MSG_BYE, e o jogo acaba.
+* Caso `q` : É chamada a função `print_status` onde é mostrado as estatísticas do jogador, é imprimida a `MSG_BYE`, e o jogo acaba.
 
 ![Command q](Images\commandQ.png)
 
-* Caso `default`: Se nenhum dos caracteres for reconhecido a MSG_UNKNOWN é imprimida.
+* Caso `default`: Se nenhum dos caracteres for reconhecido a `MSG_UNKNOWN` é imprimida.
 
 ![Message Unknown](Images\Unknown.png)
 

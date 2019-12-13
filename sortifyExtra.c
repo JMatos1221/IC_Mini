@@ -110,7 +110,7 @@ int main(int argc, char **argv)
 			puts(MSG_WELL);
 			gameScore += timedScore();
 		}
-		gameScore == 10 ? gameLevel = 2 : gameScore == 20 ? gameLevel = 3 : gameScore == 30 ? gameLevel = 4 : gameScore == 40 ? gameLevel = 5 : gameScore == 50 ? gameLevel = 6 : 0; //Verifica os pontos do jogador e se suficientes sobe o nivel
+		gameScore >= 50 ? gameLevel = 6 : gameScore >= 40 ? gameLevel = 5 : gameScore >= 30 ? gameLevel = 4 : gameScore >= 20 ? gameLevel = 3 : gameScore >= 10 ? gameLevel = 2 : 0; //Verifica os pontos do jogador e se suficientes sobe o nivel
 
 		if (gameLevel == 6){ //Caso o jogador chegue ao nivel 6 (Fim), imprime MSG_WIN, status e MSG_OVER, depois termina o jogo
 			puts(MSG_WIN);
